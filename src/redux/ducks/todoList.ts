@@ -14,7 +14,7 @@ export const addItem = (payload: TodoItem) => {
 };
 
 // REDUCERS
-const todoListReducer = (state: object, action: object) => {
+const todoListReducer = (state: object = {}, action: object) => {
   // TODO: Implement
   // switch (action.type) {
   //   case ADD_TASK:
