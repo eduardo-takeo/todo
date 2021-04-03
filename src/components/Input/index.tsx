@@ -1,5 +1,6 @@
 import React from "react";
+import { InputContainer } from "./styles";
 
 export default function Input(): JSX.Element {
-  return <div>Input</div>;
+  return <InputContainer />;
 }
