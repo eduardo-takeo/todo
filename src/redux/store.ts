@@ -1,12 +1,17 @@
-import { createStore } from "redux";
+import { combineReducers, createStore } from "redux";
+import todoListReducer from "./ducks/todoList";
 
 const initialState = {
   todoList: [],
 };
-
-const rootReducer = (state: object = initialState, action: object) => {
+const initialReducer = (state: object = initialState, action: object) => {
   return state;
 };
+
+const rootReducer = combineReducers({
+  initial: initialReducer,
+  todoList: todoListReducer,
+});
 
 const store = createStore(rootReducer);
 
