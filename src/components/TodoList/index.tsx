@@ -2,11 +2,11 @@ import React from "react";
 import { Container } from "./styles";
 import TaskItem from "../TaskItem";
 
-interface AppProps {
+interface Props {
   list: { id: number; task: string; status: string }[];
 }
 
-export default function TodoList({ list }: AppProps): JSX.Element {
+export default function TodoList({ list }: Props): JSX.Element {
   return (
     <Container>
       {list &&

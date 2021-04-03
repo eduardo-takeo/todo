@@ -1,15 +1,12 @@
 import React from "react";
 import { Item, Title } from "./styles";
 
-interface AppProps {
+interface Props {
   description: string;
   status: string;
 }
 
-export default function TaskItem({
-  description,
-  status,
-}: AppProps): JSX.Element {
+export default function TaskItem({ description, status }: Props): JSX.Element {
   return (
     <Item>
       <Title>{description}</Title>
