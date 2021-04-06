@@ -1,18 +1,28 @@
 import express from "express";
 import mongoose from "mongoose";
-import newTask from "./controller/todo-controller.js";
+import { create, remove, get } from "./controller/todo-controller.js";
 
-const PORT = process.env.PORT || 3000;
+// TODO: Estudar sobre .env e jogar isso lá
+const PORT = process.env.PORT || 3001;
 const MONGO_USER = "admin";
 const MONGO_PASSWORD = "admin";
 const MONGO_URL = `mongodb+srv://${MONGO_USER}:${MONGO_PASSWORD}@firstcluster.e1avw.mongodb.net/todo-list?retryWrites=true&w=majority`;
 
 const app = express();
 
+// TODO: Ver o que isso faz
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
+
 // Route
 app.get("/", (req, res) => {
-  res.send(newTask);
+  res.send("Todos API");
 });
+
+// API
+app.post("/api/todos", create);
+app.delete("/api/todos/:id", remove);
+app.get("/api/todos", get);
 
 // MongoDB connection
 mongoose.connect(MONGO_URL, {

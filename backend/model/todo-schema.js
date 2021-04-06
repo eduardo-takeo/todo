@@ -2,8 +2,16 @@ import mongoose from "mongoose";
 const { Schema } = mongoose;
 
 const todoSchema = new Schema({
-  task: String,
-  status: String,
+  task: {
+    type: String,
+    required: true,
+  },
+  status: {
+    type: String,
+    required: true,
+  },
 });
 
-export default todoSchema;
+const TodoDB = mongoose.model("todoDB", todoSchema);
+
+export default TodoDB;
