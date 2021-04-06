@@ -22,8 +22,9 @@ export const create = async (req, res) => {
   }
 };
 
-export const remove = (req, res) => {};
+export const remove = async (req, res) => {};
 
-export const get = (req, res) => {
-  return res.json();
+export const get = async (req, res) => {
+  const allTasks = await TodoDB.find({});
+  res.send(allTasks);
 };
