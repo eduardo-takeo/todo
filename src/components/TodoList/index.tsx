@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Container } from "./styles";
 import TaskItem from "../TaskItem";
 
-// TODO: Move to axios
-const GET_URL = "http://localhost:3001/api/todos";
+// TODO: Move to .env
+const API = "http://localhost:3001/api/todos";
 interface TodoItem {
   _id: number;
   task: string;
@@ -18,7 +18,7 @@ export default function TodoList(): JSX.Element {
   }, []);
 
   const fetchTodoItems = async () => {
-    const response = await fetch(GET_URL)
+    const response = await fetch(API)
       .then((res) => res.json())
       .then((json) => setTodos(json))
       .catch((error) => console.error(error));
