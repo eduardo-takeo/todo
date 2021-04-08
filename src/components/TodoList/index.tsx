@@ -1,17 +1,36 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Container } from "./styles";
 import TaskItem from "../TaskItem";
 
-interface Props {
-  list: { id: number; task: string; status: string }[];
+// TODO: Move to axios
+const GET_URL = "http://localhost:3001/api/todos";
+interface TodoItem {
+  _id: number;
+  task: string;
+  status: string;
 }
 
-export default function TodoList({ list }: Props): JSX.Element {
+export default function TodoList(): JSX.Element {
+  const [todos, setTodos] = useState<TodoItem[]>([]);
+
+  useEffect(() => {
+    fetchTodoItems();
+  }, []);
+
+  const fetchTodoItems = async () => {
+    const response = await fetch(GET_URL)
+      .then((res) => res.json())
+      .then((json) => setTodos(json))
+      .catch((error) => console.error(error));
+
+    return response;
+  };
+
   return (
     <Container>
-      {list &&
-        list.map(({ id, task, status }) => (
-          <TaskItem key={id} description={task} status={status} />
+      {todos &&
+        todos.map(({ _id, task, status }) => (
+          <TaskItem key={_id} description={task} status={status} />
         ))}
     </Container>
   );

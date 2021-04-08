@@ -1,5 +1,6 @@
 import express from "express";
 import mongoose from "mongoose";
+import cors from "cors";
 import { create, remove, get } from "./controller/todo-controller.js";
 
 // TODO: Estudar sobre .env e jogar isso lá
@@ -11,6 +12,7 @@ const MONGO_URL = `mongodb+srv://${MONGO_USER}:${MONGO_PASSWORD}@firstcluster.e1
 const app = express();
 
 // TODO: Ver o que isso faz
+app.use(cors());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
