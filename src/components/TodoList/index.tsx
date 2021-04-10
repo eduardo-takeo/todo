@@ -5,7 +5,7 @@ import TaskItem from "../TaskItem";
 // TODO: Move to .env
 const API = "http://localhost:3001/api/todos";
 interface TodoItem {
-  _id: number;
+  _id: string;
   task: string;
   status: string;
 }
@@ -30,7 +30,7 @@ export default function TodoList(): JSX.Element {
     <Container>
       {todos &&
         todos.map(({ _id, task, status }) => (
-          <TaskItem key={_id} description={task} status={status} />
+          <TaskItem key={_id} taskId={_id} description={task} status={status} />
         ))}
     </Container>
   );
