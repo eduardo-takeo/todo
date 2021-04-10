@@ -8,7 +8,7 @@ import { Container, Title, InputContainer } from "./styles";
 const API = "http://localhost:3001/api/todos";
 
 export default function AddTask(): JSX.Element {
-  const [task, setTask] = useState();
+  const [task, setTask] = useState<string>();
 
   const addNewTask = async () => {
     const body = {
@@ -29,12 +29,16 @@ export default function AddTask(): JSX.Element {
       .catch((error) => console.error(error));
   };
 
-  // TODO: Definir tipo do evento do onChange
   return (
     <Container>
       <Title>Add task</Title>
       <InputContainer>
-        <Input value={task} onChange={(e: any) => setTask(e.target.value)} />
+        <Input
+          value={task}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setTask(e.target.value)
+          }
+        />
         <Button title="Add" onClick={addNewTask} />
       </InputContainer>
     </Container>
