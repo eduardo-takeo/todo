@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Container } from "./styles";
 import TaskItem from "../TaskItem";
-
-// TODO: Move to .env
-const API = "http://localhost:3001/api/todos";
+import { useDispatch } from "react-redux";
+import { setTasks } from "../../redux/ducks/todoList";
 interface TodoItem {
   _id: string;
   task: string;
@@ -12,23 +11,26 @@ interface TodoItem {
 
 export default function TodoList(): JSX.Element {
   const [todos, setTodos] = useState<TodoItem[]>([]);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     fetchTodoItems();
   }, []);
 
-  const fetchTodoItems = async () => {
-    const response = await fetch(API)
-      .then((res) => res.json())
-      .then((json) => setTodos(json))
-      .catch((error) => console.error(error));
+  useEffect(() => {
+    dispatch(setTasks(todos));
+  }, [todos, dispatch]);
 
-    return response;
+  const fetchTodoItems = async () => {
+    await fetch("http://localhost:3001/api/todos")
+      .then((res) => res.json())
+      .then((data) => setTodos(data))
+      .catch((error) => console.error(error));
   };
 
   return (
     <Container>
-      {todos &&
+      {todos.length > 0 &&
         todos.map(({ _id, task, status }) => (
           <TaskItem key={_id} taskId={_id} description={task} status={status} />
         ))}
