@@ -1,25 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useContext } from "react";
 import { Container } from "./styles";
 import TaskItem from "../TaskItem";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchTasks } from "../../redux/ducks/todoList";
+import { TodosContext } from "../../contexts/TodosContext";
 
-interface TodoState {
-  todoList: TodoItem[];
-}
-interface TodoItem {
-  _id: string;
-  task: string;
-  status: string;
-}
-
-export default function TodoList(): JSX.Element {
-  const todoList = useSelector((state: TodoState) => state.todoList);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(fetchTasks());
-  }, []);
+export default function TodoList() {
+  const { todoList } = useContext(TodosContext);
 
   return (
     <Container>

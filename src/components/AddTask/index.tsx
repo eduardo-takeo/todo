@@ -1,14 +1,14 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { TodosContext } from "../../contexts/TodosContext";
+import { api } from "../../services/api";
 import Button from "../Button";
 import Input from "../Input";
 
 import { Container, Title, InputContainer } from "./styles";
 
-// TODO: Move to .env
-const API = "http://localhost:3001/api/todos";
-
 export default function AddTask(): JSX.Element {
-  const [task, setTask] = useState<string>();
+  const { fetchTasks } = useContext(TodosContext);
+  const [task, setTask] = useState<string>("");
 
   const addNewTask = async () => {
     const body = {
@@ -16,17 +16,12 @@ export default function AddTask(): JSX.Element {
       status: "active",
     };
 
-    const options = {
-      method: "POST",
-      body: JSON.stringify(body),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
-
-    await fetch(API, options)
-      .then((res) => res.json())
-      .catch((error) => console.error(error));
+    try {
+      await api.post("/todos", body);
+      fetchTasks();
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
